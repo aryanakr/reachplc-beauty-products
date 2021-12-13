@@ -30,6 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import coil.compose.rememberImagePainter
 import com.reachplc.interview.BeautyProductsApp
 import com.reachplc.interview.data.Product
@@ -62,26 +64,19 @@ class ListFragment : Fragment() {
 
         // TODO: Add fab button logic
 
-//        val listAdapter = ProductListAdapter{}
-
-//        binding.recyclerView.layoutManager = GridLayoutManager(this.context, 1)
-//        binding.recyclerView.adapter = listAdapter
-//        viewModel.products.observe(this.viewLifecycleOwner) {items ->
-//            println("////////////////////////// items count : ${items.size}")
-//            if (items.size > 0){
-//                listAdapter.submitList(items)
-//            } else {
-//                binding.message.visibility = View.VISIBLE
-//            }
-//
-//        }
 
         // For match parent items better to use gridlayoutmanager so it won't be overridden by wrap content
         binding.composeView.setContent {
-            ProductsGrid(viewModel)
+            ProductsGrid(viewModel, {id: String, title: String ->
+                navigateToProductDetail(id, title)
+            })
         }
 
+    }
 
+    private fun navigateToProductDetail(id: String, title: String) {
+        val action = ListFragmentDirections.actionFragmentListToDetailFragment(id, title)
+        this.findNavController().navigate(action)
     }
 
 }

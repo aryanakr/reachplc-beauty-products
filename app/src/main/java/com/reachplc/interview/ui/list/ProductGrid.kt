@@ -2,6 +2,7 @@ package com.reachplc.interview.ui.list
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -24,7 +25,10 @@ import com.reachplc.interview.data.Product
 
 @ExperimentalFoundationApi
 @Composable
-fun ProductsGrid(viewModel: ListViewModel) {
+fun ProductsGrid(
+    viewModel: ListViewModel,
+    navigateToDetail: (String, String) -> Unit
+) {
     val products : List<Product> by viewModel.products.observeAsState(listOf())
 
     if (products.size > 0) {
@@ -33,7 +37,9 @@ fun ProductsGrid(viewModel: ListViewModel) {
             contentPadding = PaddingValues(8.dp)
         ) {
             items(products.size) { i ->
-                ProductsGridItem(product = products[i])
+                ProductsGridItem(product = products[i], modifier = Modifier.clickable {
+                    navigateToDetail(products[i].id, products[i].name)
+                })
             }
         }
     } else {
@@ -44,7 +50,7 @@ fun ProductsGrid(viewModel: ListViewModel) {
 @Composable
 fun ProductsGridItem(product: Product,modifier: Modifier = Modifier) {
     Card (
-        modifier = Modifier.padding(4.dp),
+        modifier = modifier.padding(4.dp),
         backgroundColor = Color.LightGray
     ){
         Column()
