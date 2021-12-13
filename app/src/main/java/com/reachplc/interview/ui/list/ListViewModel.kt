@@ -1,9 +1,6 @@
 package com.reachplc.interview.ui.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.reachplc.interview.data.Product
 import com.reachplc.interview.di.AppContainer
 import kotlinx.coroutines.launch
@@ -37,4 +34,12 @@ class ListViewModel(private val appContainer: AppContainer) : ViewModel() {
         }
     }
 
+}
+
+@Suppress("UNCHECKED_CAST")
+class ListViewModelFactory (
+    private val appContainer: AppContainer
+) : ViewModelProvider.NewInstanceFactory() {
+    override fun <T : ViewModel> create(modelClass: Class<T>) =
+        (ListViewModel(appContainer) as T)
 }

@@ -26,12 +26,18 @@ import com.reachplc.interview.data.Product
 @Composable
 fun ProductsGrid(viewModel: ListViewModel) {
     val products : List<Product> by viewModel.products.observeAsState(listOf())
-    LazyVerticalGrid(cells = GridCells.Adaptive(minSize = 150.dp),
-        contentPadding = PaddingValues(8.dp)
-    ) {
-        items(products.size) { i ->
-            ProductsGridItem(product = products[i])
+
+    if (products.size > 0) {
+        LazyVerticalGrid(
+            cells = GridCells.Adaptive(minSize = 150.dp),
+            contentPadding = PaddingValues(8.dp)
+        ) {
+            items(products.size) { i ->
+                ProductsGridItem(product = products[i])
+            }
         }
+    } else {
+        Text("There is no product to show!!!")
     }
 }
 

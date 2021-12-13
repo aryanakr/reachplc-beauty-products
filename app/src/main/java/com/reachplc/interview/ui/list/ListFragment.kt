@@ -86,11 +86,5 @@ class ListFragment : Fragment() {
 
 }
 
-@Suppress("UNCHECKED_CAST")
-class ListViewModelFactory (
-    private val appContainer: AppContainer
-) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel> create(modelClass: Class<T>) =
-        (ListViewModel(appContainer) as T)
-}
+
 
