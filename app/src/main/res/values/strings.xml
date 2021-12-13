@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BeautyProducts</string>
+    <string name="network_failed">Failed to retrieve data from network!</string>
+    <string name="empty_saved_products">No product is saved, save some!</string>
+</resources>
