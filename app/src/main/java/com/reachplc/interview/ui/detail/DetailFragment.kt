@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.size
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.reachplc.interview.BeautyProductsApp
@@ -15,6 +20,8 @@ import com.reachplc.interview.databinding.FragmentListBinding
 import com.reachplc.interview.ui.list.ListViewModel
 import com.reachplc.interview.ui.list.ListViewModelFactory
 import androidx.navigation.fragment.navArgs
+import coil.compose.rememberImagePainter
+import java.text.NumberFormat
 
 
 class DetailFragment : Fragment() {
@@ -45,8 +52,16 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.product.observe(this.viewLifecycleOwner){ product ->
-            // TODO: Update views
-            binding.txt.text = navigationArgs.productTitle
+            product!!.let {
+                binding.composeImage.setContent {
+                    ProductDetailImage(it)
+                }
+
+                binding.title.text = it.name
+                binding.price.text = NumberFormat.getCurrencyInstance().format(it.price)
+                binding.description.text = it.description
+            }
+
 
         }
     }
@@ -56,4 +71,13 @@ class DetailFragment : Fragment() {
         _binding = null
     }
 
+}
+
+@Composable
+fun ProductDetailImage(product: Product) {
+    Image(
+        painter = rememberImagePainter(product.image),
+        contentDescription = product.name + " thumbnail",
+        modifier = Modifier.size(128.dp)
+    )
 }

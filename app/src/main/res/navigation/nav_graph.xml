@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.reachplc.interview.ui.detail.DetailFragment"
-        android:label="fragment_detail"
+        android:label="{product_title}"
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="product_id"
