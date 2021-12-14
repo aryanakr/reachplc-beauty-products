@@ -24,7 +24,7 @@ data class ProductHistory(
         parentColumn = "id",
         entityColumn = "productId"
     )
-    val lastVisit: History
+    val lastVisit: History?
 )
 
 

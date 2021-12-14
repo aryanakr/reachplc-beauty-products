@@ -40,7 +40,7 @@ class HistoryAdapter(private val context: Context,  private val onItemClicked: (
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ProductHistory) {
-            val accessTime: List<String> = item.lastVisit.visit.dateToString("dd/MM/yyyy HH:mm").split(" ")
+            val accessTime: List<String> = item.lastVisit?.visit!!.dateToString("dd/MM/yyyy HH:mm").split(" ")
             binding.apply {
                 titleTxt.text = item.product.name
                 dateTxt.text = accessTime[0]
@@ -60,7 +60,7 @@ class HistoryAdapter(private val context: Context,  private val onItemClicked: (
             }
 
             override fun areContentsTheSame(oldItem: ProductHistory, newItem: ProductHistory): Boolean {
-                return oldItem.lastVisit.productId == newItem.lastVisit.productId
+                return oldItem.product.id == newItem.product.id
             }
         }
     }

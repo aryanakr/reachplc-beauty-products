@@ -81,7 +81,7 @@ class HistoryFragment : Fragment() {
         nameTextView.text = productHistory.product.name
         priceTextView.text = NumberFormat.getCurrencyInstance().format(productHistory.product.price)
         descriptionTextView.text = productHistory.product.description
-        accessTextView.text = productHistory.lastVisit.visit.dateToString("dd/MM/yyyy HH:mm")
+        accessTextView.text = productHistory.lastVisit!!.visit.dateToString("dd/MM/yyyy HH:mm")
 
         dialog.show()
     }
