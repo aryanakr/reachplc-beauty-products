@@ -3,14 +3,17 @@ package com.reachplc.interview.ui.detail
 
 import androidx.lifecycle.*
 import com.reachplc.interview.data.Product
+import com.reachplc.interview.data.local.History
+import com.reachplc.interview.data.local.HistoryDao
 import com.reachplc.interview.di.AppContainer
 import com.reachplc.interview.ui.list.ListViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 
 enum class productServiceStatus { LOADING, ERROR, DONE}
 
 
-class DetailViewModel(private val appContainer: AppContainer) : ViewModel() {
+class DetailViewModel(private val appContainer: AppContainer, private val historyDao: HistoryDao) : ViewModel() {
     // TODO: Implement the ViewModel
     lateinit var productId: String
     private val _status = MutableLiveData<productServiceStatus>()
@@ -34,7 +37,19 @@ class DetailViewModel(private val appContainer: AppContainer) : ViewModel() {
         }
     }
 
-    fun saveProduct(product: Product){
+    fun saveProductHistory(product: Product, access: Date){
+        viewModelScope.launch {
+            if (historyDao.getProductById(product.id).isEmpty()){
+                historyDao.insertProduct(product)
+
+                val history = History(productId = product.id, visit = access)
+                historyDao.insertHistory(history)
+            } else {
+                val history = History(productId = product.id, visit = access)
+                historyDao.updateHistory(history)
+            }
+
+        }
 
     }
 
@@ -42,8 +57,9 @@ class DetailViewModel(private val appContainer: AppContainer) : ViewModel() {
 
 @Suppress("UNCHECKED_CAST")
 class DetailViewModelFactory (
-    private val appContainer: AppContainer
+    private val appContainer: AppContainer,
+    private val historyDao: HistoryDao
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>) =
-        (DetailViewModel(appContainer) as T)
+        (DetailViewModel(appContainer, historyDao) as T)
 }

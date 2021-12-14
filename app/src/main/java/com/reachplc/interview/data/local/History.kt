@@ -13,9 +13,7 @@ import java.util.*
     )
 ])
 data class History(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-    @ColumnInfo(index = true)
+    @PrimaryKey@ColumnInfo(index = true)
     val productId: String,
     val visit: Date
 )
@@ -26,7 +24,7 @@ data class ProductHistory(
         parentColumn = "id",
         entityColumn = "productId"
     )
-    val lastVisits: History
+    val lastVisit: History
 )
 
 

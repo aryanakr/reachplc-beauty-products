@@ -6,11 +6,17 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HistoryDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertHistory(history: History) : Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProduct(product: Product)
+
+    @Update
+    suspend fun updateHistory(history: History)
+
+    @Query("SELECT * FROM product WHERE id = :id")
+    suspend fun getProductById(id: String): List<Product>
 
     @Transaction
     @Query("SELECT * FROM product WHERE id = :id")

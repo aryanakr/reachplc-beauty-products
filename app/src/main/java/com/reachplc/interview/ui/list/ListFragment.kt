@@ -72,6 +72,9 @@ class ListFragment : Fragment() {
             R.id.opt_clear -> showClearConfirmationDialog()
             R.id.opt_transfer -> moveMarkedToInventory(this.requireContext())
         }*/
+        when (item.itemId) {
+            R.id.history -> navigateToHistory()
+        }
 
         return super.onOptionsItemSelected(item)
     }
@@ -93,6 +96,14 @@ class ListFragment : Fragment() {
      */
     private fun navigateToProductDetail(id: String, title: String) {
         val action = ListFragmentDirections.actionFragmentListToDetailFragment(id, title)
+        this.findNavController().navigate(action)
+    }
+
+    /**
+     * Handler for navigation from ListFragment to HistoryFragment
+     */
+    private fun navigateToHistory() {
+        val action = ListFragmentDirections.actionFragmentListToHistoryFragment()
         this.findNavController().navigate(action)
     }
 

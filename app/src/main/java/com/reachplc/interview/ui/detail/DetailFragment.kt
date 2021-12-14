@@ -26,12 +26,16 @@ import com.reachplc.interview.ui.list.ListViewModelFactory
 import androidx.navigation.fragment.navArgs
 import coil.compose.rememberImagePainter
 import java.text.NumberFormat
+import java.util.*
 
 
 class DetailFragment : Fragment() {
 
     private val viewModel by viewModels<DetailViewModel> {
-        DetailViewModelFactory((requireContext().applicationContext as BeautyProductsApp).appContainer)
+        DetailViewModelFactory(
+            (requireContext().applicationContext as BeautyProductsApp).appContainer,
+            (activity?.application as BeautyProductsApp).database.historyDao()
+        )
     }
 
     private lateinit var product: Product
@@ -67,7 +71,7 @@ class DetailFragment : Fragment() {
                 binding.description.text = it.description
             }
 
-
+            viewModel.saveProductHistory(product!!, Calendar.getInstance().time)
         }
     }
 
