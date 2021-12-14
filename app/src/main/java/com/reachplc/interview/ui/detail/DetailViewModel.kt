@@ -25,7 +25,7 @@ class DetailViewModel(private val appContainer: AppContainer) : ViewModel() {
         viewModelScope.launch {
             _status.value = productServiceStatus.LOADING
             try {
-                _product.value = appContainer.retrofit.getProducts().products.first{ it.id == productId}
+                _product.value = appContainer.productsService.getProducts().products.first{ it.id == productId}
                 _status.value = productServiceStatus.DONE
             } catch (e: Exception) {
                 _status.value = productServiceStatus.ERROR

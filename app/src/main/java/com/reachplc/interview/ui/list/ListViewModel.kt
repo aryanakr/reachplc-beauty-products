@@ -25,7 +25,7 @@ class ListViewModel(private val appContainer: AppContainer) : ViewModel() {
         viewModelScope.launch {
             _status.value = ProductServiceStatus.LOADING
             try {
-                _products.value = appContainer.retrofit.getProducts().products
+                _products.value = appContainer.productsService.getProducts().products
                 _status.value = ProductServiceStatus.DONE
             } catch (e: Exception) {
                 _status.value = ProductServiceStatus.ERROR
