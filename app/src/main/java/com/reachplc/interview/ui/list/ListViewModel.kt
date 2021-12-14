@@ -3,16 +3,16 @@ package com.reachplc.interview.ui.list
 import androidx.lifecycle.*
 import com.reachplc.interview.data.Product
 import com.reachplc.interview.di.AppContainer
+import com.reachplc.interview.ui.detail.productServiceStatus
 import kotlinx.coroutines.launch
 
-enum class productServiceStatus { LOADING, ERROR, DONE}
+enum class ProductServiceStatus { LOADING, ERROR, DONE}
 
 
 class ListViewModel(private val appContainer: AppContainer) : ViewModel() {
     // TODO: Implement the ViewModel
-    private val _status = MutableLiveData<productServiceStatus>()
-
-    val status: LiveData<productServiceStatus> = _status
+    private val _status = MutableLiveData<ProductServiceStatus>()
+    val status: LiveData<ProductServiceStatus> = _status
 
     private val _products = MutableLiveData<List<Product>>()
     val products: LiveData<List<Product>> = _products
@@ -23,12 +23,12 @@ class ListViewModel(private val appContainer: AppContainer) : ViewModel() {
 
     private fun getProducts() {
         viewModelScope.launch {
-            _status.value = productServiceStatus.LOADING
+            _status.value = ProductServiceStatus.LOADING
             try {
                 _products.value = appContainer.retrofit.getProducts().products
-                _status.value = productServiceStatus.DONE
+                _status.value = ProductServiceStatus.DONE
             } catch (e: Exception) {
-                _status.value = productServiceStatus.ERROR
+                _status.value = ProductServiceStatus.ERROR
                 _products.value = listOf()
             }
         }

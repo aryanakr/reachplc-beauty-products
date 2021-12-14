@@ -49,11 +49,11 @@ class ListFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
-    // private val args: ListFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -62,10 +62,6 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Add fab button logic
-
-
-        // For match parent items better to use gridlayoutmanager so it won't be overridden by wrap content
         binding.composeView.setContent {
             ProductsGrid(viewModel, {id: String, title: String ->
                 navigateToProductDetail(id, title)
@@ -74,6 +70,9 @@ class ListFragment : Fragment() {
 
     }
 
+    /**
+     * Handler for navigation from ListFragment to DetailFragment
+     */
     private fun navigateToProductDetail(id: String, title: String) {
         val action = ListFragmentDirections.actionFragmentListToDetailFragment(id, title)
         this.findNavController().navigate(action)
