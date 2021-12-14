@@ -2,10 +2,8 @@ package com.reachplc.interview.ui.list
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.View
-import android.view.ViewGroup
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -34,6 +32,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import coil.compose.rememberImagePainter
 import com.reachplc.interview.BeautyProductsApp
+import com.reachplc.interview.R
 import com.reachplc.interview.data.Product
 import com.reachplc.interview.databinding.FragmentListBinding
 import com.reachplc.interview.di.AppContainer
@@ -49,6 +48,10 @@ class ListFragment : Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +59,21 @@ class ListFragment : Fragment() {
     ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.options_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        /*when (item.itemId) {
+            R.id.opt_clear -> showClearConfirmationDialog()
+            R.id.opt_transfer -> moveMarkedToInventory(this.requireContext())
+        }*/
+
+        return super.onOptionsItemSelected(item)
     }
 
     @ExperimentalFoundationApi
