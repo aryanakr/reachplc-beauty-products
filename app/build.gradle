@@ -25,7 +25,7 @@ android {
         }
     }
     buildFeatures {
-        viewBinding = true
+        viewBinding true
         compose true
     }
     compileOptions {
@@ -34,10 +34,14 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
+    }
+    packagingOptions {
+        exclude "META-INF/licenses/**"
+        exclude "META-INF/AL2.0"
+        exclude "META-INF/LGPL2.1"
     }
 }
 
@@ -59,6 +63,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'androidx.databinding:databinding-common:4.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.databinding:databinding-runtime:7.0.4'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     // Retrofit / OkHttp
@@ -90,14 +95,16 @@ dependencies {
     // Compose Testing
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
+    debugImplementation("androidx.fragment:fragment-testing:1.4.0")
 
-    // AndroidX Test - JVM testing
-    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
-    testImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
-
-    // AndroidX Test - Instrumented testing
-    androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
-    androidTestImplementation "androidx.arch.core:core-testing:$archTestingVersion"
+//    // AndroidX Test - JVM testing
+//    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+//    testImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
+//
+//    // AndroidX Test - Instrumented testing
+//    androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
+//    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+//    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
+//    androidTestImplementation "androidx.arch.core:core-testing:$archTestingVersion"
 }
