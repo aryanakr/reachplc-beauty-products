@@ -3,12 +3,16 @@ package com.reachplc.interview.ui.detail
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -55,6 +59,7 @@ class DetailFragment : Fragment() {
             product!!.let {
                 binding.composeImage.setContent {
                     ProductDetailImage(it)
+
                 }
 
                 binding.title.text = it.name
@@ -78,6 +83,6 @@ fun ProductDetailImage(product: Product) {
     Image(
         painter = rememberImagePainter(product.image),
         contentDescription = product.name + " thumbnail",
-        modifier = Modifier.size(128.dp)
+        modifier = Modifier.background(Color.Black).size(128.dp)
     )
 }
