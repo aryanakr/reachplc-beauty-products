@@ -1,5 +1,6 @@
 package com.reachplc.interview.ui.history
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +11,12 @@ import com.reachplc.interview.databinding.HistoryItemBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HistoryAdapter(private val onItemClicked: (ProductHistory) -> Unit)
+/**
+ * Adaptor for history fragment recycler view
+ * @param context Context required for opening a dialog
+ * @param onItemClicked (Context, ProductHistory) -> Unit function set to each item click listener
+ */
+class HistoryAdapter(private val context: Context,  private val onItemClicked: (Context, ProductHistory) -> Unit)
     : ListAdapter<ProductHistory, HistoryAdapter.ItemViewHolder>  (DiffCallback)
 {
     override fun onCreateViewHolder(
@@ -26,7 +32,7 @@ class HistoryAdapter(private val onItemClicked: (ProductHistory) -> Unit)
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val current = getItem(position)
-        holder.itemView.setOnClickListener { onItemClicked(current) }
+        holder.itemView.setOnClickListener { onItemClicked(context, current) }
         holder.bind(current)
     }
 
@@ -46,8 +52,6 @@ class HistoryAdapter(private val onItemClicked: (ProductHistory) -> Unit)
             return dateFormatter.format(this)
         }
     }
-
-
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<ProductHistory>() {
