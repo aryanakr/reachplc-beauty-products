@@ -8,9 +8,11 @@ import kotlinx.coroutines.launch
 
 enum class ProductServiceStatus { LOADING, ERROR, DONE}
 
-
+/**
+ * View model for ListFragment
+ * @param appContainer AppContainer containing objects shared across application
+ */
 class ListViewModel(private val appContainer: AppContainer) : ViewModel() {
-    // TODO: Implement the ViewModel
     private val _status = MutableLiveData<ProductServiceStatus>()
     val status: LiveData<ProductServiceStatus> = _status
 
@@ -21,6 +23,9 @@ class ListViewModel(private val appContainer: AppContainer) : ViewModel() {
         getProducts()
     }
 
+    /**
+     * retrieves the products from web server by calling the retrofit from AppContainer
+     */
     private fun getProducts() {
         viewModelScope.launch {
             _status.value = ProductServiceStatus.LOADING

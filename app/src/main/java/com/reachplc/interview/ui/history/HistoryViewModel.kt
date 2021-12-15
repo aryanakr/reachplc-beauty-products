@@ -8,6 +8,10 @@ import com.reachplc.interview.data.local.ProductHistory
 import kotlinx.coroutines.launch
 import java.util.*
 
+/**
+ * View Model for History fragment
+ * @param historyDao HistoryDao access to history databse
+ */
 class HistoryViewModel (private val historyDao: HistoryDao) : ViewModel() {
 
     /**

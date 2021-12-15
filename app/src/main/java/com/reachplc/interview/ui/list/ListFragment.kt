@@ -67,11 +67,6 @@ class ListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        /*when (item.itemId) {
-            R.id.opt_clear -> showClearConfirmationDialog()
-            R.id.opt_transfer -> moveMarkedToInventory(this.requireContext())
-        }*/
         when (item.itemId) {
             R.id.history -> navigateToHistory()
         }

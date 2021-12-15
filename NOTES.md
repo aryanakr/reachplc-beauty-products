@@ -7,22 +7,22 @@ Submitted by: Aryan Akbarpour (aryan.akr@yahoo.com)
 ## Implementation
 
 ### ListFragment
-This entry fragment displayes grid of products retrieved from a web server using retrofit. From the options menu, the user can navigate to history fragment.
+This entry fragment displays a grid of products retrieved from a web server using retrofit. From the options menu, the user can navigate to the history fragment.
 
 ![ListFragment](./screenshots/ListFragment.png)
 ![ListFragment](./screenshots/ListFragmentLandscape.png)
 
-The grid has been implemented using Jetpack compose as it simplified creating a responsive grid layout (which would have different number of columns in each row based of the width of the screen); whilst being as optimised as recycler view when displaying large number of items.
+The grid is implemented using Jetpack compose as it simplifies creating a responsive grid layout (which would have a different number of columns in each row based on the width of the screen); whilst being as optimised as recycler view when displaying a large number of items. The view model for this fragment retrieves the list of products upon initialisation and provides live data for the view to consume.
 
-The view model for this fragment retrieves the list of products from the web server upon initialisation, and provides a live data from the view to consume.
-
-Each product is displayed as card using the composable function ProductsGridItem. The application navigates to detail fragment for displaying the detail of a specific product.
+Each product is displayed as a card using the composable function ProductsGridItem. The application navigates to the detail fragment for displaying the detail of a selected product.
 
 
 ### DetailFragment
+The fragment shows the detail of a product. This fragment takes the title and id of a product as navigation arguments. After fetching the product using retrofit, the product is saved in a local database along with the current timestamp as the last access time. If a product is visited before, only the access time is updated.
 ![DetailFragment](./screenshots/FragmentDetail.png)
 
 ### HistoryFragment
+This fragment utilises the local database to display the list of previously visited products and their last access time. This list is implemented using a recycler view. Clicking on each item inside the list opens a dialog box showing more detail about the product.
 ![DetailFragment](./screenshots/HistoryFragment.png)
 ![ProductHistoryDetailDialog](./screenshots/ProductHistoryDetail.png)
 

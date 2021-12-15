@@ -49,9 +49,9 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // TODO: Update Navbar Title
+        // Fetch Product
         viewModel.fetchProduct(navigationArgs.productId)
-        // Inflate the layout for this fragment
+
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
